@@ -1,0 +1,188 @@
+create database paginaweb2
+go
+
+use paginaweb2
+go
+
+create table usuario (
+	codigousuario integer identity(1,1) not null,
+	nombreusuario varchar(50) not null,
+	cuentausuario varchar(100) not null,
+	claveusuario varchar(100) not null,
+	CONSTRAINT pk_codigousuario primary key(codigousuario)
+)
+go
+
+create table contacto(
+	codigocontacto integer identity(1,1) not null,
+	nombrecontacto varchar(50) not null,
+	correocontacto varchar(100) not null,
+	comentariocontacto varchar(200) not null,
+	CONSTRAINT pk_codigocontacto primary key(codigocontacto)
+)
+go
+
+create table categoria
+(
+	codigocategoria integer identity(1,1) not null,
+	nombrecategoria varchar(50) not null,
+	CONSTRAINT pk_categoria primary key(codigocategoria)
+)
+go
+
+create table subcategoria
+(
+	codigosubcategoria integer identity(1,1) not null,
+	codigocategoria integer not null,
+	nombresubcategoria varchar(50) not null,
+	CONSTRAINT pk_codigosubcategoria primary key(codigosubcategoria),
+	CONSTRAINT fk_codigocategoriasubcategoria foreign key(codigocategoria) references categoria(codigocategoria)
+)
+go
+
+create table lineasubcategoria
+(
+	codigolineasubcategoria integer identity(1,1) not null,
+	codigosubcategoria integer not null,
+	nombrelineasubcategoria varchar(50) not null,
+	CONSTRAINT pk_codigolineasubcategoria primary key(codigolineasubcategoria),
+	CONSTRAINT fk_codigosubcategorialineasubcategoria foreign key(codigosubcategoria) references subcategoria(codigosubcategoria)
+)
+go
+
+create table producto
+(
+	codigoproducto integer identity(1,1) not null,
+	codigolineasubcategoria integer not null,
+	nombreproducto varchar(100) not null,
+	descripcionproducto varchar(200) not null,
+	precioproducto decimal(10,2) default 0.0,
+	detallesproducto varchar(900) null,
+	CONSTRAINT pk_codigoproducto primary key(codigoproducto),
+	CONSTRAINT fk_codigolineasubcategoria foreign key(codigolineasubcategoria) references lineasubcategoria(codigolineasubcategoria)
+)
+go
+
+create table imagenproducto
+(
+	codigoimagenproducto integer identity(1,1) not null,
+	codigoproducto integer not null,
+	direccionimagenproducto varchar(500) not null,
+	nombreimagenproducto varchar(100) null,--podria ser nulla
+	CONSTRAINT pk_codigoimagenproducto primary key(codigoimagenproducto),	
+	CONSTRAINT fk_codigoproductoimagenproducto foreign key(codigoproducto) references producto(codigoproducto),
+)
+go
+
+
+
+insert into categoria (nombrecategoria) values 
+	('Clothing'),
+	('Swimwear'),
+	('Trends'),
+	('Favorities'),
+	('New')
+go
+
+insert into subcategoria (codigocategoria,nombresubcategoria) values 
+	(1,'Dresses'),
+	(1,'Tops'),
+	(1,'Sweaters'),
+	(1,'Pants'),
+	(1,'Skirts'),
+	(2,'Shop my style')
+go
+
+insert into lineasubcategoria (codigosubcategoria,nombrelineasubcategoria) values 
+	(1,'Maxi Dresses'),
+	(1,'Casual'),
+	(1,'Party'),
+	(1,'Little Black Dress'),
+	(2,'Sleeveless'),
+	(2,'Short Sleeve'),
+	(2,'Blouses'),
+	(2,'Tunics'),
+	(3,'Long Sleeve'),
+	(3,'Cardigans'),
+	(4,'Leggings'),
+	(4,'Capri'),
+	(5,'Maxi Skirts'),
+	(5,'Short')
+go
+
+insert into producto (codigolineasubcategoria,nombreproducto,descripcionproducto,precioproducto,detallesproducto) values 
+	(3,'SLIMMING FRINGE DRESS','Style #?Z48563',72.00,'Z48563: SLIMMING FRINGE DRESS Machine wash cold, permanent press Do not bleach Hang to dry or lay flat Iron on the lowest setting Do not dry clean'),
+	(3,'SLEEVELESS DRESS','Style #?J58103?',44.00,'J58103: SLEEVELESS DRESS Machine wash cold, permanent press Do not bleach Hang to dry or lay flat Iron on the lowest setting Do not dry clean'),
+	(3,'GOLD DETAILED LONG DRESS','Style #?Z58774',44.00,'Z58774: GOLD DETAILED LONG DRESS  Machine wash cold, permanent press Do not bleach Hang to dry or lay flat Iron on the lowest setting Do not dry clean'),
+	(3,'SEQUIN DRESS WITH SLIT','Style #?Y58584?',69.00,'Y58584: SEQUIN DRESS WITH SLIT Hand wash cold Do not bleach Hang to dry or lay flat'),
+	(2,'PRINTED DRESS','Style #?Z59006?',39.00,'Z59006: PRINTED DRESS Machine wash warm Do not bleach Tumble dry low Iron on the lowest setting Do not dry clean'),
+	(2,'PRINT DRESS','Style #?J68041?',36.00,'J68041: PRINT DRESS Machine wash cold, permanent press Do not bleach Hang to dry or lay flat Iron on the lowest setting Do not dry clean'),
+	(2,'BEADED TRIM MINI DRESS','Style #?Y68047?',39.00,'Y68047: BEADED TRIM MINI DRESS Turn inside out prior to washing or ironing Hand wash cold Do not bleach Hang to dry or lay flat Medium iron Do not dry clean'),
+	(2,'CASUAL TANK DRESS','Style #?J3870?',36.00,'J3870: CASUAL TANK DRESS Machine wash cold Do not bleach Hang or lay flat to dry Iron on the lowest setting Do not dry clean'),
+	(11,'SLIMMING STRETCH JEGGING','Style #?Y41015',59.00,'Y41015: SLIMMING STRETCH JEGGING Machine wash cold w/like colors Only non-chlorine bleach Tumble dry low Iron low if needed'),
+	(11,'BATWING FRONT CARDIGAN','Style #?Z57722?',34.00,'Z57722: BATWING FRONT CARDIGAN Turn inside out prior to washing or ironing Machine wash cold, permanent press Do not bleach Hang to dry or lay flat Iron on the lowest setting Do not dry clean'),
+	(11,'CUT OUT MESH DETAIL TOP','Style #?Y34730?',22.00,'Y34730: CUT OUT MESH DETAIL TOP Turn inside out prior to washing or ironing Machine wash warm Do not bleach Hang to dry or lay flat Medium iron Do not dry clean'),
+	(11,'FISH TAIL JACKET','Style #?Z9414',49.00,'Z9414: FISH TAIL JACKET Dry cleaning recommended Machine wash cold with like colors Do not bleach Iron on lowest setting'),
+	(12,'SEAMLESS RIB TANK','Style #?Z54062',14.00,'Z9414: FISH TAIL JACKET Dry cleaning recommended Machine wash cold with like colors Do not bleach Iron on lowest setting'),
+	(12,'SEAMLESS RIB TANK','Style #?Z54062?',14.00,'Z9414: FISH TAIL JACKET Dry cleaning recommended Machine wash cold with like colors Do not bleach Iron on lowest setting'),
+	(12,'CROCHET MEDALLION TUBE TOP','Style #?Y44062?',34.00,'Z9414: FISH TAIL JACKET Dry cleaning recommended Machine wash cold with like colors Do not bleach Iron on lowest setting'),
+	(12,'STRIPED HOODED TUNIC','Style #?Y50314?',34.00,'Z9414: FISH TAIL JACKET Dry cleaning recommended Machine wash cold with like colors Do not bleach Iron on lowest setting')
+go
+
+insert into imagenproducto (codigoproducto,direccionimagenproducto,nombreimagenproducto) 
+	values
+	--CLOTHING
+	--Dresses
+	(1,'http://image.venusswimwear.com/is/image/Venus/Z48563-BK_Y32902-SL.11?$ProductPage527x738$','Party 1'),
+	(1,'http://image.venusswimwear.com/is/image/Venus/Z48563-BK_Y42572-NU.15B?$ProductPage527x738$','Party 2'),
+	(1,'http://image.venusswimwear.com/is/image/Venus/Y32902-SL?$ProductPage527x738$','Party 3'),
+	(2,'http://image.venusswimwear.com/is/image/Venus/J58103-NV.01.bkg3?$ProductPage527x738$','Party 1'),
+	(2,'http://image.venusswimwear.com/is/image/Venus/J58103-NV.07B?$ProductPage527x738$','Party 2'),
+	(3,'http://image.venusswimwear.com/is/image/Venus/Y58335-NVMU.33?$ProductPage527x738$','Party 1'),
+	(3,'http://image.venusswimwear.com/is/image/Venus/Y58335-NVMU.02B?$ProductPage527x738$','Party 2'),
+	(4,'http://image.venusswimwear.com/is/image/Venus/Z58774-BKMU_Y42572-BK.58?$ProductPage527x738$','Party 1'),
+	(4,'http://image.venusswimwear.com/is/image/Venus/Z58774-BKMU_Y42572-BK.41?$ProductPage527x738$','Party 2'),
+	(4,'http://image.venusswimwear.com/is/image/Venus/Y42572-BK?$ProductPage527x738$','Party 3'),
+
+	(5,'http://image.venusswimwear.com/is/image/Venus/Z59006-OWMU_Y52940-WH.60?$ProductPage527x738$','Casual 1'),
+	(5,'http://image.venusswimwear.com/is/image/Venus/Z59006-OWMU_Y52940-WH.07B?$ProductPage527x738$','Casual 2'),
+	(5,'http://image.venusswimwear.com/is/image/Venus/Y52940-WH.01?$ProductPage527x738$','Casual 3'),
+	(6,'http://image.venusswimwear.com/is/image/Venus/J68041-MU.1?$ProductPage527x738$','Casual 1'),
+	(6,'http://image.venusswimwear.com/is/image/Venus/J68041-MU.3B?$ProductPage527x738$','Casual 2'),
+	(7,'http://image.venusswimwear.com/is/image/Venus/Y48002-DKOL_Y42972-CAMU.11?$ProductPage527x738$','Casual 1'),	
+	(7,'http://image.venusswimwear.com/is/image/Venus/Y48002-HG_Y42972-CAMU.14B?$ProductPage527x738$','Casual 2'),
+	(8,'http://image.venusswimwear.com/is/image/Venus/Y48340-BK.37?$ProductPage527x738$','Casual 1'),
+	(8,'http://image.venusswimwear.com/is/image/Venus/Y48340-BK.15?$ProductPage527x738$','Casual 2'),
+
+	--Pants
+	(9,'http://image.venusswimwear.com/is/image/Venus/Z8640-WH_Y41015-OPGY_Z12983-TA.23?$ProductPage527x738$','Leggings 1'),
+	(9,'http://image.venusswimwear.com/is/image/Venus/Z12983-TA.01?$ProductPage527x738$','Leggings 2'),
+	(10,'http://image.venusswimwear.com/is/image/Venus/Z9414-BK_Z54061-BK_Z51709-BKMU_Y32902-BK.06?$ProductPage527x738$','Leggings 1'),
+	(10,'http://image.venusswimwear.com/is/image/Venus/Y32902-BK?$ProductPage527x738$','Leggings 2'),
+	(11,'http://image.venusswimwear.com/is/image/Venus/Z24153-BK_Y41706-BKMU_Z12983-BK.49?$ProductPage527x738$','Leggings 1'),
+	(11,'http://image.venusswimwear.com/is/image/Venus/Z24153-BK_Y41706-BKMU_Z12983-BK.64?$ProductPage527x738$','Leggings 2'),
+	(11,'http://image.venusswimwear.com/is/image/Venus/Y32902-BK?$ProductPage527x738$','Leggings 3'),
+
+	(12,'http://image.venusswimwear.com/is/image/Venus/Z1531-WH_Y31012-CO_Y32981-WH.27?$ProductPage527x738$','Capri 1'),
+	(12,'http://image.venusswimwear.com/is/image/Venus/Z1531-WH_Y31012-CO_Y32981-WH.10?$ProductPage527x738$','Capri 2'),
+	(12,'http://image.venusswimwear.com/is/image/Venus/Y32981-WH.1?$ProductPage527x738$','Capri 3'),
+	(13,'http://image.venusswimwear.com/is/image/Venus/J4170-WH_Y51034-BK_Y52954-WH.35?$ProductPage527x738$','Capri 1'),
+	(13,'http://image.venusswimwear.com/is/image/Venus/J4170-WH_Y51034-BK_Y52954-WH.06B?$ProductPage527x738$','Capri 2'),
+	(13,'http://image.venusswimwear.com/is/image/Venus/Y52954-WH.1-T?$ProductPage527x738$','Capri 3'),
+	(14,'http://image.venusswimwear.com/is/image/Venus/Z1531-WH_Y31012-MT_Y32981-WH.27?$ProductPage527x738$','Capri 1'),
+	(14,'http://image.venusswimwear.com/is/image/Venus/Z1531-WH_Y31012-MT_Y32981-WH.21?$ProductPage527x738$','Capri 2'),
+	(14,'http://image.venusswimwear.com/is/image/Venus/Y32981-WH.1?$ProductPage527x738$','Capri 3')
+go
+
+
+select * from categoria
+go
+
+select * from subcategoria
+go
+
+select * from lineasubcategoria
+go
+
+select * from producto p inner join imagenproducto ip on p.codigoproducto = ip.codigoproducto
+go

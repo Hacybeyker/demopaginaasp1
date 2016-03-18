@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DemoPagina1.Models.lineasubcategoria>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombrelineasubcategoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.subcategoria.nombresubcategoria)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombrelineasubcategoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.subcategoria.nombresubcategoria)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.codigolineasubcategoria }) |
+            @Html.ActionLink("Details", "Details", new { id=item.codigolineasubcategoria }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.codigolineasubcategoria })
+        </td>
+    </tr>
+}
+
+</table>

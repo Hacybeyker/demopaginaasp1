@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0aeb394227e04d05a16c6f0d74890fba" Name="Diagram1">
+        <EntityTypeShape EntityType="paginaweb2Model.categoria" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="paginaweb2Model.contacto" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="paginaweb2Model.imagenproducto" Width="1.5" PointX="9.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="paginaweb2Model.lineasubcategoria" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="paginaweb2Model.producto" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="paginaweb2Model.subcategoria" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="paginaweb2Model.usuario" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="paginaweb2Model.fk_codigocategoriasubcategoria" ManuallyRouted="false" />
+        <AssociationConnector Association="paginaweb2Model.fk_codigoproductoimagenproducto" ManuallyRouted="false" />
+        <AssociationConnector Association="paginaweb2Model.fk_codigolineasubcategoria" ManuallyRouted="false" />
+        <AssociationConnector Association="paginaweb2Model.fk_codigosubcategorialineasubcategoria" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="paginaweb2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="codigocategoria" />
+          </Key>
+          <Property Name="codigocategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombrecategoria" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contacto">
+          <Key>
+            <PropertyRef Name="codigocontacto" />
+          </Key>
+          <Property Name="codigocontacto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombrecontacto" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="correocontacto" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="comentariocontacto" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="imagenproducto">
+          <Key>
+            <PropertyRef Name="codigoimagenproducto" />
+          </Key>
+          <Property Name="codigoimagenproducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigoproducto" Type="int" Nullable="false" />
+          <Property Name="direccionimagenproducto" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="nombreimagenproducto" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="lineasubcategoria">
+          <Key>
+            <PropertyRef Name="codigolineasubcategoria" />
+          </Key>
+          <Property Name="codigolineasubcategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigosubcategoria" Type="int" Nullable="false" />
+          <Property Name="nombrelineasubcategoria" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="codigoproducto" />
+          </Key>
+          <Property Name="codigoproducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigolineasubcategoria" Type="int" Nullable="false" />
+          <Property Name="nombreproducto" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="descripcionproducto" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="precioproducto" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="detallesproducto" Type="varchar" MaxLength="900" />
+        </EntityType>
+        <EntityType Name="subcategoria">
+          <Key>
+            <PropertyRef Name="codigosubcategoria" />
+          </Key>
+          <Property Name="codigosubcategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigocategoria" Type="int" Nullable="false" />
+          <Property Name="nombresubcategoria" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="codigousuario" />
+          </Key>
+          <Property Name="codigousuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombreusuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cuentausuario" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="claveusuario" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_codigocategoriasubcategoria">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
+          <End Role="subcategoria" Type="Self.subcategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="codigocategoria" />
+            </Principal>
+            <Dependent Role="subcategoria">
+              <PropertyRef Name="codigocategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_codigolineasubcategoria">
+          <End Role="lineasubcategoria" Type="Self.lineasubcategoria" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lineasubcategoria">
+              <PropertyRef Name="codigolineasubcategoria" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="codigolineasubcategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_codigoproductoimagenproducto">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="imagenproducto" Type="Self.imagenproducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="codigoproducto" />
+            </Principal>
+            <Dependent Role="imagenproducto">
+              <PropertyRef Name="codigoproducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_codigosubcategorialineasubcategoria">
+          <End Role="subcategoria" Type="Self.subcategoria" Multiplicity="1" />
+          <End Role="lineasubcategoria" Type="Self.lineasubcategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subcategoria">
+              <PropertyRef Name="codigosubcategoria" />
+            </Principal>
+            <Dependent Role="lineasubcategoria">
+              <PropertyRef Name="codigosubcategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="paginaweb2ModelStoreContainer">
+          <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contacto" EntityType="Self.contacto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="imagenproducto" EntityType="Self.imagenproducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lineasubcategoria" EntityType="Self.lineasubcategoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="producto" EntityType="Self.producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="subcategoria" EntityType="Self.subcategoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_codigocategoriasubcategoria" Association="Self.fk_codigocategoriasubcategoria">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="subcategoria" EntitySet="subcategoria" />
+          </AssociationSet>
+          <AssociationSet Name="fk_codigolineasubcategoria" Association="Self.fk_codigolineasubcategoria">
+            <End Role="lineasubcategoria" EntitySet="lineasubcategoria" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_codigoproductoimagenproducto" Association="Self.fk_codigoproductoimagenproducto">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="imagenproducto" EntitySet="imagenproducto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_codigosubcategorialineasubcategoria" Association="Self.fk_codigosubcategorialineasubcategoria">
+            <End Role="subcategoria" EntitySet="subcategoria" />
+            <End Role="lineasubcategoria" EntitySet="lineasubcategoria" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="paginaweb2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="codigocategoria" />
+          </Key>
+          <Property Name="codigocategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombrecategoria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="subcategoria" Relationship="Self.fk_codigocategoriasubcategoria" FromRole="categoria" ToRole="subcategoria" />
+        </EntityType>
+        <EntityType Name="contacto">
+          <Key>
+            <PropertyRef Name="codigocontacto" />
+          </Key>
+          <Property Name="codigocontacto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombrecontacto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correocontacto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="comentariocontacto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="imagenproducto">
+          <Key>
+            <PropertyRef Name="codigoimagenproducto" />
+          </Key>
+          <Property Name="codigoimagenproducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigoproducto" Type="Int32" Nullable="false" />
+          <Property Name="direccionimagenproducto" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombreimagenproducto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="producto" Relationship="Self.fk_codigoproductoimagenproducto" FromRole="imagenproducto" ToRole="producto" />
+        </EntityType>
+        <EntityType Name="lineasubcategoria">
+          <Key>
+            <PropertyRef Name="codigolineasubcategoria" />
+          </Key>
+          <Property Name="codigolineasubcategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigosubcategoria" Type="Int32" Nullable="false" />
+          <Property Name="nombrelineasubcategoria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Self.fk_codigolineasubcategoria" FromRole="lineasubcategoria" ToRole="producto" />
+          <NavigationProperty Name="subcategoria" Relationship="Self.fk_codigosubcategorialineasubcategoria" FromRole="lineasubcategoria" ToRole="subcategoria" />
+        </EntityType>
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="codigoproducto" />
+          </Key>
+          <Property Name="codigoproducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigolineasubcategoria" Type="Int32" Nullable="false" />
+          <Property Name="nombreproducto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcionproducto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="precioproducto" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="detallesproducto" Type="String" MaxLength="900" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="imagenproducto" Relationship="Self.fk_codigoproductoimagenproducto" FromRole="producto" ToRole="imagenproducto" />
+          <NavigationProperty Name="lineasubcategoria" Relationship="Self.fk_codigolineasubcategoria" FromRole="producto" ToRole="lineasubcategoria" />
+        </EntityType>
+        <EntityType Name="subcategoria">
+          <Key>
+            <PropertyRef Name="codigosubcategoria" />
+          </Key>
+          <Property Name="codigosubcategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigocategoria" Type="Int32" Nullable="false" />
+          <Property Name="nombresubcategoria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="categoria" Relationship="Self.fk_codigocategoriasubcategoria" FromRole="subcategoria" ToRole="categoria" />
+          <NavigationProperty Name="lineasubcategoria" Relationship="Self.fk_codigosubcategorialineasubcategoria" FromRole="subcategoria" ToRole="lineasubcategoria" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="codigousuario" />
+          </Key>
+          <Property Name="codigousuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombreusuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cuentausuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="claveusuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_codigocategoriasubcategoria">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
+          <End Role="subcategoria" Type="Self.subcategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="codigocategoria" />
+            </Principal>
+            <Dependent Role="subcategoria">
+              <PropertyRef Name="codigocategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_codigoproductoimagenproducto">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="imagenproducto" Type="Self.imagenproducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="codigoproducto" />
+            </Principal>
+            <Dependent Role="imagenproducto">
+              <PropertyRef Name="codigoproducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_codigolineasubcategoria">
+          <End Role="lineasubcategoria" Type="Self.lineasubcategoria" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lineasubcategoria">
+              <PropertyRef Name="codigolineasubcategoria" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="codigolineasubcategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_codigosubcategorialineasubcategoria">
+          <End Role="subcategoria" Type="Self.subcategoria" Multiplicity="1" />
+          <End Role="lineasubcategoria" Type="Self.lineasubcategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subcategoria">
+              <PropertyRef Name="codigosubcategoria" />
+            </Principal>
+            <Dependent Role="lineasubcategoria">
+              <PropertyRef Name="codigosubcategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="paginaweb2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categoria" EntityType="Self.categoria" />
+          <EntitySet Name="contacto" EntityType="Self.contacto" />
+          <EntitySet Name="imagenproducto" EntityType="Self.imagenproducto" />
+          <EntitySet Name="lineasubcategoria" EntityType="Self.lineasubcategoria" />
+          <EntitySet Name="producto" EntityType="Self.producto" />
+          <EntitySet Name="subcategoria" EntityType="Self.subcategoria" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <AssociationSet Name="fk_codigocategoriasubcategoria" Association="Self.fk_codigocategoriasubcategoria">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="subcategoria" EntitySet="subcategoria" />
+          </AssociationSet>
+          <AssociationSet Name="fk_codigoproductoimagenproducto" Association="Self.fk_codigoproductoimagenproducto">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="imagenproducto" EntitySet="imagenproducto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_codigolineasubcategoria" Association="Self.fk_codigolineasubcategoria">
+            <End Role="lineasubcategoria" EntitySet="lineasubcategoria" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_codigosubcategorialineasubcategoria" Association="Self.fk_codigosubcategorialineasubcategoria">
+            <End Role="subcategoria" EntitySet="subcategoria" />
+            <End Role="lineasubcategoria" EntitySet="lineasubcategoria" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="paginaweb2ModelStoreContainer" CdmEntityContainer="paginaweb2Entities">
+          <EntitySetMapping Name="categoria">
+            <EntityTypeMapping TypeName="paginaweb2Model.categoria">
+              <MappingFragment StoreEntitySet="categoria">
+                <ScalarProperty Name="codigocategoria" ColumnName="codigocategoria" />
+                <ScalarProperty Name="nombrecategoria" ColumnName="nombrecategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contacto">
+            <EntityTypeMapping TypeName="paginaweb2Model.contacto">
+              <MappingFragment StoreEntitySet="contacto">
+                <ScalarProperty Name="codigocontacto" ColumnName="codigocontacto" />
+                <ScalarProperty Name="nombrecontacto" ColumnName="nombrecontacto" />
+                <ScalarProperty Name="correocontacto" ColumnName="correocontacto" />
+                <ScalarProperty Name="comentariocontacto" ColumnName="comentariocontacto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="imagenproducto">
+            <EntityTypeMapping TypeName="paginaweb2Model.imagenproducto">
+              <MappingFragment StoreEntitySet="imagenproducto">
+                <ScalarProperty Name="codigoimagenproducto" ColumnName="codigoimagenproducto" />
+                <ScalarProperty Name="codigoproducto" ColumnName="codigoproducto" />
+                <ScalarProperty Name="direccionimagenproducto" ColumnName="direccionimagenproducto" />
+                <ScalarProperty Name="nombreimagenproducto" ColumnName="nombreimagenproducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lineasubcategoria">
+            <EntityTypeMapping TypeName="paginaweb2Model.lineasubcategoria">
+              <MappingFragment StoreEntitySet="lineasubcategoria">
+                <ScalarProperty Name="codigolineasubcategoria" ColumnName="codigolineasubcategoria" />
+                <ScalarProperty Name="codigosubcategoria" ColumnName="codigosubcategoria" />
+                <ScalarProperty Name="nombrelineasubcategoria" ColumnName="nombrelineasubcategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="producto">
+            <EntityTypeMapping TypeName="paginaweb2Model.producto">
+              <MappingFragment StoreEntitySet="producto">
+                <ScalarProperty Name="codigoproducto" ColumnName="codigoproducto" />
+                <ScalarProperty Name="codigolineasubcategoria" ColumnName="codigolineasubcategoria" />
+                <ScalarProperty Name="nombreproducto" ColumnName="nombreproducto" />
+                <ScalarProperty Name="descripcionproducto" ColumnName="descripcionproducto" />
+                <ScalarProperty Name="precioproducto" ColumnName="precioproducto" />
+                <ScalarProperty Name="detallesproducto" ColumnName="detallesproducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subcategoria">
+            <EntityTypeMapping TypeName="paginaweb2Model.subcategoria">
+              <MappingFragment StoreEntitySet="subcategoria">
+                <ScalarProperty Name="codigosubcategoria" ColumnName="codigosubcategoria" />
+                <ScalarProperty Name="codigocategoria" ColumnName="codigocategoria" />
+                <ScalarProperty Name="nombresubcategoria" ColumnName="nombresubcategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="paginaweb2Model.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="codigousuario" ColumnName="codigousuario" />
+                <ScalarProperty Name="nombreusuario" ColumnName="nombreusuario" />
+                <ScalarProperty Name="cuentausuario" ColumnName="cuentausuario" />
+                <ScalarProperty Name="claveusuario" ColumnName="claveusuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

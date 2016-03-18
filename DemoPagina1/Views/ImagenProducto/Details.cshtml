@@ -1,0 +1,42 @@
+﻿@model DemoPagina1.Models.imagenproducto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>imagenproducto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.direccionimagenproducto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.direccionimagenproducto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombreimagenproducto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreimagenproducto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.producto.nombreproducto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.producto.nombreproducto)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.codigoimagenproducto }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

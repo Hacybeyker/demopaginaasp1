@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="paginaweb2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="categoria">
+    <Key>
+      <PropertyRef Name="codigocategoria" />
+    </Key>
+    <Property Name="codigocategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombrecategoria" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="contacto">
+    <Key>
+      <PropertyRef Name="codigocontacto" />
+    </Key>
+    <Property Name="codigocontacto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombrecontacto" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="correocontacto" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="comentariocontacto" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="imagenproducto">
+    <Key>
+      <PropertyRef Name="codigoimagenproducto" />
+    </Key>
+    <Property Name="codigoimagenproducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigoproducto" Type="int" Nullable="false" />
+    <Property Name="direccionimagenproducto" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="nombreimagenproducto" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="lineasubcategoria">
+    <Key>
+      <PropertyRef Name="codigolineasubcategoria" />
+    </Key>
+    <Property Name="codigolineasubcategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigosubcategoria" Type="int" Nullable="false" />
+    <Property Name="nombrelineasubcategoria" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="producto">
+    <Key>
+      <PropertyRef Name="codigoproducto" />
+    </Key>
+    <Property Name="codigoproducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigolineasubcategoria" Type="int" Nullable="false" />
+    <Property Name="nombreproducto" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="descripcionproducto" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="precioproducto" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="detallesproducto" Type="varchar" MaxLength="900" />
+  </EntityType>
+  <EntityType Name="subcategoria">
+    <Key>
+      <PropertyRef Name="codigosubcategoria" />
+    </Key>
+    <Property Name="codigosubcategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigocategoria" Type="int" Nullable="false" />
+    <Property Name="nombresubcategoria" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="codigousuario" />
+    </Key>
+    <Property Name="codigousuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreusuario" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="cuentausuario" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="claveusuario" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_codigocategoriasubcategoria">
+    <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
+    <End Role="subcategoria" Type="Self.subcategoria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categoria">
+        <PropertyRef Name="codigocategoria" />
+      </Principal>
+      <Dependent Role="subcategoria">
+        <PropertyRef Name="codigocategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_codigolineasubcategoria">
+    <End Role="lineasubcategoria" Type="Self.lineasubcategoria" Multiplicity="1" />
+    <End Role="producto" Type="Self.producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="lineasubcategoria">
+        <PropertyRef Name="codigolineasubcategoria" />
+      </Principal>
+      <Dependent Role="producto">
+        <PropertyRef Name="codigolineasubcategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_codigoproductoimagenproducto">
+    <End Role="producto" Type="Self.producto" Multiplicity="1" />
+    <End Role="imagenproducto" Type="Self.imagenproducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="producto">
+        <PropertyRef Name="codigoproducto" />
+      </Principal>
+      <Dependent Role="imagenproducto">
+        <PropertyRef Name="codigoproducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_codigosubcategorialineasubcategoria">
+    <End Role="subcategoria" Type="Self.subcategoria" Multiplicity="1" />
+    <End Role="lineasubcategoria" Type="Self.lineasubcategoria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="subcategoria">
+        <PropertyRef Name="codigosubcategoria" />
+      </Principal>
+      <Dependent Role="lineasubcategoria">
+        <PropertyRef Name="codigosubcategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="paginaweb2ModelStoreContainer">
+    <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contacto" EntityType="Self.contacto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="imagenproducto" EntityType="Self.imagenproducto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="lineasubcategoria" EntityType="Self.lineasubcategoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="producto" EntityType="Self.producto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="subcategoria" EntityType="Self.subcategoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_codigocategoriasubcategoria" Association="Self.fk_codigocategoriasubcategoria">
+      <End Role="categoria" EntitySet="categoria" />
+      <End Role="subcategoria" EntitySet="subcategoria" />
+    </AssociationSet>
+    <AssociationSet Name="fk_codigolineasubcategoria" Association="Self.fk_codigolineasubcategoria">
+      <End Role="lineasubcategoria" EntitySet="lineasubcategoria" />
+      <End Role="producto" EntitySet="producto" />
+    </AssociationSet>
+    <AssociationSet Name="fk_codigoproductoimagenproducto" Association="Self.fk_codigoproductoimagenproducto">
+      <End Role="producto" EntitySet="producto" />
+      <End Role="imagenproducto" EntitySet="imagenproducto" />
+    </AssociationSet>
+    <AssociationSet Name="fk_codigosubcategorialineasubcategoria" Association="Self.fk_codigosubcategorialineasubcategoria">
+      <End Role="subcategoria" EntitySet="subcategoria" />
+      <End Role="lineasubcategoria" EntitySet="lineasubcategoria" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

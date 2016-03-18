@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="paginaweb2ModelStoreContainer" CdmEntityContainer="paginaweb2Entities">
+    <EntitySetMapping Name="categoria">
+      <EntityTypeMapping TypeName="paginaweb2Model.categoria">
+        <MappingFragment StoreEntitySet="categoria">
+          <ScalarProperty Name="codigocategoria" ColumnName="codigocategoria" />
+          <ScalarProperty Name="nombrecategoria" ColumnName="nombrecategoria" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contacto">
+      <EntityTypeMapping TypeName="paginaweb2Model.contacto">
+        <MappingFragment StoreEntitySet="contacto">
+          <ScalarProperty Name="codigocontacto" ColumnName="codigocontacto" />
+          <ScalarProperty Name="nombrecontacto" ColumnName="nombrecontacto" />
+          <ScalarProperty Name="correocontacto" ColumnName="correocontacto" />
+          <ScalarProperty Name="comentariocontacto" ColumnName="comentariocontacto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="imagenproducto">
+      <EntityTypeMapping TypeName="paginaweb2Model.imagenproducto">
+        <MappingFragment StoreEntitySet="imagenproducto">
+          <ScalarProperty Name="codigoimagenproducto" ColumnName="codigoimagenproducto" />
+          <ScalarProperty Name="codigoproducto" ColumnName="codigoproducto" />
+          <ScalarProperty Name="direccionimagenproducto" ColumnName="direccionimagenproducto" />
+          <ScalarProperty Name="nombreimagenproducto" ColumnName="nombreimagenproducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="lineasubcategoria">
+      <EntityTypeMapping TypeName="paginaweb2Model.lineasubcategoria">
+        <MappingFragment StoreEntitySet="lineasubcategoria">
+          <ScalarProperty Name="codigolineasubcategoria" ColumnName="codigolineasubcategoria" />
+          <ScalarProperty Name="codigosubcategoria" ColumnName="codigosubcategoria" />
+          <ScalarProperty Name="nombrelineasubcategoria" ColumnName="nombrelineasubcategoria" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="producto">
+      <EntityTypeMapping TypeName="paginaweb2Model.producto">
+        <MappingFragment StoreEntitySet="producto">
+          <ScalarProperty Name="codigoproducto" ColumnName="codigoproducto" />
+          <ScalarProperty Name="codigolineasubcategoria" ColumnName="codigolineasubcategoria" />
+          <ScalarProperty Name="nombreproducto" ColumnName="nombreproducto" />
+          <ScalarProperty Name="descripcionproducto" ColumnName="descripcionproducto" />
+          <ScalarProperty Name="precioproducto" ColumnName="precioproducto" />
+          <ScalarProperty Name="detallesproducto" ColumnName="detallesproducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="subcategoria">
+      <EntityTypeMapping TypeName="paginaweb2Model.subcategoria">
+        <MappingFragment StoreEntitySet="subcategoria">
+          <ScalarProperty Name="codigosubcategoria" ColumnName="codigosubcategoria" />
+          <ScalarProperty Name="codigocategoria" ColumnName="codigocategoria" />
+          <ScalarProperty Name="nombresubcategoria" ColumnName="nombresubcategoria" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usuario">
+      <EntityTypeMapping TypeName="paginaweb2Model.usuario">
+        <MappingFragment StoreEntitySet="usuario">
+          <ScalarProperty Name="codigousuario" ColumnName="codigousuario" />
+          <ScalarProperty Name="nombreusuario" ColumnName="nombreusuario" />
+          <ScalarProperty Name="cuentausuario" ColumnName="cuentausuario" />
+          <ScalarProperty Name="claveusuario" ColumnName="claveusuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

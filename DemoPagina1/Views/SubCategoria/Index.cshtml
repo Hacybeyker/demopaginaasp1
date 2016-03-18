@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DemoPagina1.Models.subcategoria>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@Html.ActionLink("Regresar","Index","Home");
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombresubcategoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.categoria.nombrecategoria)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombresubcategoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.categoria.nombrecategoria)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.codigosubcategoria }) |
+            @Html.ActionLink("Details", "Details", new { id=item.codigosubcategoria }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.codigosubcategoria })
+        </td>
+    </tr>
+}
+
+</table>
